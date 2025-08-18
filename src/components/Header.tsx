@@ -1,5 +1,5 @@
 "use client";
-import { FaHeart, FaShoppingCart } from "react-icons/fa";
+import { FaHeart, FaShoppingCart, FaSearch } from "react-icons/fa";
 import Link from "next/link";
 
 export default function Header() {
@@ -57,6 +57,14 @@ export default function Header() {
 
           {/* Sağ Taraf */}
           <div className="flex items-center gap-4">
+            <div className="relative">
+              <input
+                type="text"
+                placeholder="Ara..."
+                className="pl-10 pr-4 py-1 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400 text-sm"
+              />
+              <FaSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+            </div>
             <FaHeart className="cursor-pointer text-gray-600" />
             <FaShoppingCart className="cursor-pointer text-gray-600" />
           </div>
