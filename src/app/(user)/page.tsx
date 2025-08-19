@@ -5,6 +5,7 @@ import CountdownTimer from "@/components/CountdownTimer";
 import ProductCard from "@/components/ProductCard";
 import { products } from "@/data/products";
 import CategoryGrid from "@/components/CategoryGrid";
+import Image from "next/image";
 
 export default function HomePage() {
   const flashSaleRef = useRef<HTMLDivElement | null>(null);
@@ -171,9 +172,42 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/*  Special Offers Just for You */}
+      <section className="py-12 bg-gray-100">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="text-center">
+            <h2 className="text-3xl font-bold text-black mb-4">
+              Special Offers Just for You
+            </h2>
+            <p className="text-lg text-gray-700 mb-6">
+              Don't miss out on our exclusive deals and discounts!
+            </p>
+            <button className="bg-red-500 text-white px-6 py-3 rounded-full hover:bg-red-600 transition-colors">
+              Shop Now
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* Banner Section */}
+      <section className="py-12">
+        <div className="max-w-7xl mx-auto px-4 relative">
+          <div className="relative w-full h-[800px] md:h-[500px] mb-6">
+            <Image
+              src="/banner/1.png"
+              alt="Banner"
+              fill
+              className="object-cover rounded-lg shadow-lg"
+            />
+            <button className="absolute bottom-32 left-12 bg-green-600 text-white px-6 py-3 rounded-full hover:bg-red-600 transition-colors">
+              Claim Offer
+            </button>
+          </div>
+        </div>
+      </section>
 
 
-      
+
     </div>
   );
 }

@@ -1,17 +1,23 @@
+"use client";
+
 import React from "react";
 
 interface CategoryCardProps {
-  name: string;
-  icon: string; // icon url veya sınıf
+  label: string;
+  icon: React.ReactNode;
+  active?: boolean;
+  onClick?: () => void;
 }
 
-const CategoryCard: React.FC<CategoryCardProps> = ({ name, icon }) => {
+export default function CategoryCard({ label, icon, active, onClick }: CategoryCardProps) {
   return (
-    <div className="border rounded p-4 flex flex-col items-center">
-      <img src={icon} alt={name} className="w-12 h-12 mb-2" />
-      <span className="text-sm">{name}</span>
+    <div
+      onClick={onClick}
+      className={`min-w-[200px] h-[145px] border border-black flex flex-col items-center justify-center gap-4 cursor-pointer transition rounded-lg
+        ${active ? "bg-red-500 text-white" : "bg-white text-black"}`}
+    >
+      <div className="text-3xl">{icon}</div>
+      <span className="font-medium">{label}</span>
     </div>
   );
-};
-
-export default CategoryCard;
+}
