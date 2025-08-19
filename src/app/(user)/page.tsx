@@ -1,8 +1,8 @@
 // app/page.tsx
 import Slider from '@/components/Slider';
 import CategoryGrid from '@/components/CategoryGrid';
-import ProductGrid from '@/components/ProductGrid';
 import CountdownTimer from '@/components/CountdownTimer';
+import ProductCarousel from '@/components/ProductCarousel';
 
 export default function HomePage() {
   return (
@@ -25,14 +25,14 @@ export default function HomePage() {
             <h2 className="text-2xl font-bold">Flash Sale</h2>
             <CountdownTimer targetDate={new Date('2025-08-25T23:59:59')} />
           </div>
-          <ProductGrid variant="flashSale" />
+<ProductCarousel variant="flashSale" />
         </div>
       </section>
 
       {/* Featured Products Section */}
       <section className="max-w-7xl mx-auto px-4">
         <h2 className="text-2xl font-bold mb-6">Öne Çıkan Ürünler</h2>
-        <ProductGrid variant="featured" />
+<ProductCarousel variant="flashSale" />
       </section>
     </div>
   );
