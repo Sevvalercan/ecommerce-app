@@ -1,20 +1,64 @@
-// components/ProductGrid.tsx
-import ProductCard from './ProductCard';
-import { products } from '@/data/products';
+"use client";
+import { useState, useRef } from "react";
+import {
+  FaMobileAlt,
+  FaLaptop,
+  FaHeadphones,
+  FaGamepad,
+  FaCamera,
+} from "react-icons/fa";
+import { MdWatch } from "react-icons/md";
 
-type ProductGridProps = {
-  variant?: 'flashSale' | 'featured';
-};
+interface CategoryCardProps {
+  label: string;
+  icon: React.ReactNode;
+  active?: boolean;
+  onClick?: () => void;
+}
 
-export default function ProductGrid({ variant }: ProductGridProps) {
-  // İstersen variant'a göre filtreleme ekleyebilirsin
-  const filteredProducts =
-    variant === 'flashSale' ? products.slice(0, 4) : products;
+function CategoryCard({ label, icon, active, onClick }: CategoryCardProps) {
+  return (
+    <div
+      onClick={onClick}
+      className={`min-w-[200px] h-[145px] border border-black flex flex-col items-center justify-center gap-4 cursor-pointer transition rounded-lg
+        ${active ? "bg-red-500 text-white" : "bg-white text-black"}`}
+    >
+      <div className="text-3xl">{icon}</div>
+      <span className="font-medium">{label}</span>
+    </div>
+  );
+}
+
+export default function CategoryGrid() {
+  const [active, setActive] = useState("Phones");
+  const scrollRef = useRef<HTMLDivElement | null>(null);
+
+  const categories = [
+    { label: "Phones", icon: <FaMobileAlt /> },
+    { label: "Computers", icon: <FaLaptop /> },
+    { label: "SmartWatch", icon: <MdWatch /> },
+    { label: "Camera", icon: <FaCamera /> },
+    { label: "HeadPhones", icon: <FaHeadphones /> },
+    { label: "Gaming", icon: <FaGamepad /> },
+    { label: "Accessories", icon: <FaHeadphones /> },
+    { label: "Tablets", icon: <FaLaptop /> },
+    { label: "Audio", icon: <FaHeadphones /> },
+    { label: "Wearables", icon: <MdWatch /> },
+  ];
 
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
-      {filteredProducts.map(product => (
-        <ProductCard key={product.id} {...product} />
+    <div
+      ref={scrollRef}
+      className="flex overflow-x-auto scrollbar-hide space-x-4 py-4"
+    >
+      {categories.map((cat) => (
+        <CategoryCard
+          key={cat.label}
+          label={cat.label}
+          icon={cat.icon}
+          active={active === cat.label}
+          onClick={() => setActive(cat.label)}
+        />
       ))}
     </div>
   );
