@@ -6,6 +6,7 @@ import ProductCard from "@/components/ProductCard";
 import { products } from "@/data/products";
 import CategoryGrid from "@/components/CategoryGrid";
 import Image from "next/image";
+import FeaturesSection from "@/components/FeaturesSection";
 
 export default function HomePage() {
   const flashSaleRef = useRef<HTMLDivElement | null>(null);
@@ -191,8 +192,8 @@ export default function HomePage() {
 
       {/* Banner Section */}
       <section className="py-12">
-        <div className="max-w-7xl mx-auto px-4 relative">
-          <div className="relative w-full h-[800px] md:h-[500px] mb-6">
+        <div className="max-w-7xl mx-auto  relative">
+          <div className="relative w-full h-[800px] md:h-[500px]">
             <Image
               src="/banner/1.png"
               alt="Banner"
@@ -206,8 +207,8 @@ export default function HomePage() {
         </div>
       </section>
 
-
-
+      {/* Features Section */}
+      <FeaturesSection />
     </div>
   );
 }
