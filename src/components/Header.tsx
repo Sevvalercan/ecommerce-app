@@ -1,14 +1,31 @@
 "use client";
-import { FaHeart, FaShoppingCart, FaSearch } from "react-icons/fa";
+
+import { useState } from "react";
+import { FaHeart, FaShoppingCart, FaSearch, FaBars, FaTimes } from "react-icons/fa";
 import Link from "next/link";
 
+const categories = [
+  "Phones",
+  "Computers",
+  "SmartWatch",
+  "Camera",
+  "HeadPhones",
+  "Gaming",
+  "Accessories",
+  "Tablets",
+  "Audio",
+  "Wearables",
+];
+
 export default function Header() {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [mobileCatOpen, setMobileCatOpen] = useState(false);
+
   return (
     <header className="w-full">
       {/* Üst Bar */}
       <div className="bg-black text-white text-sm">
         <div className="max-w-7xl mx-auto px-4 flex items-center justify-center py-2 relative">
-          {/* Kampanya Yazısı */}
           <p className="text-center">
             Summer Sale For All Swim Suits And Free Express Delivery -{" "}
             <Link
@@ -19,7 +36,6 @@ export default function Header() {
             </Link>
           </p>
 
-          {/* Dil Seçeneği */}
           <div className="absolute right-4">
             <select className="bg-gray border border-gray-600 text-white px-3 py-1 rounded text-sm focus:outline-none focus:ring-2 focus:ring-yellow-400">
               <option value="en">ENGLISH</option>
@@ -28,22 +44,37 @@ export default function Header() {
           </div>
         </div>
       </div>
+
       {/* Navbar */}
       <nav className="bg-white shadow-md">
         <div className="max-w-7xl mx-auto px-4 flex items-center justify-between py-4">
           {/* Logo */}
-          <Link href="/" className="text-xl font-bold">
-            ECOMMERCE
-          </Link>
+          <div className="text-xl font-bold">
+            <Link href="/">ECOMMERCE</Link>
+          </div>
 
-          {/* Menü */}
-          <ul className="flex gap-6 text-gray-700 font-medium">
-            <li>
+          {/* Desktop Menü */}
+          <ul className="hidden md:flex gap-6 text-gray-700 font-medium items-center">
+             <li>
               <Link href="/">Home</Link>
             </li>
-            <li>
-              <Link href="/category">Category</Link>
+            <li className="relative group">
+              <button className="flex items-center gap-1 hover:text-black transition">
+                Category
+              </button>
+              {/* Dropdown on hover */}
+              <ul className="absolute top-full left-0 mt-2 w-48 bg-white shadow-lg rounded-md py-2 opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-all duration-200 z-50">
+                {categories.map((cat) => (
+                  <li
+                    key={cat}
+                    className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-gray-700 text-sm"
+                  >
+                    {cat}
+                  </li>
+                ))}
+              </ul>
             </li>
+           
             <li>
               <Link href="/contact">Contact</Link>
             </li>
@@ -55,8 +86,16 @@ export default function Header() {
             </li>
           </ul>
 
+          {/* Mobile Menü Butonu */}
+          <button
+            className="md:hidden text-gray-700"
+            onClick={() => setMenuOpen(!menuOpen)}
+          >
+            {menuOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
+          </button>
+
           {/* Sağ Taraf */}
-          <div className="flex items-center gap-4">
+          <div className="hidden md:flex items-center gap-4">
             <div className="relative">
               <input
                 type="text"
@@ -69,6 +108,60 @@ export default function Header() {
             <FaShoppingCart className="cursor-pointer text-gray-600" />
           </div>
         </div>
+
+        {/* Mobile Menü */}
+        {menuOpen && (
+          <div className="md:hidden bg-white shadow-md">
+            <ul className="flex flex-col gap-2 px-4 py-2">
+              <li>
+                <button
+                  onClick={() => setMobileCatOpen(!mobileCatOpen)}
+                  className="w-full text-left flex justify-between items-center py-2"
+                >
+                  Category
+                </button>
+                {mobileCatOpen && (
+                  <ul className="flex flex-col gap-1 pl-4">
+                    {categories.map((cat) => (
+                      <li
+                        key={cat}
+                        className="py-1 text-gray-700 text-sm hover:bg-gray-100 rounded"
+                      >
+                        {cat}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </li>
+              <li>
+                <Link href="/">Home</Link>
+              </li>
+              <li>
+                <Link href="/contact">Contact</Link>
+              </li>
+              <li>
+                <Link href="/about">About</Link>
+              </li>
+              <li>
+                <Link href="/signup">Signup</Link>
+              </li>
+            </ul>
+
+            {/* Mobile Search & Icons */}
+            <div className="flex items-center gap-4 px-4 py-2">
+              <div className="relative flex-1">
+                <input
+                  type="text"
+                  placeholder="Ara..."
+                  className="pl-10 pr-4 py-1 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400 text-sm w-full"
+                />
+                <FaSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+              </div>
+              <FaHeart className="cursor-pointer text-gray-600" />
+              <FaShoppingCart className="cursor-pointer text-gray-600" />
+            </div>
+          </div>
+        )}
       </nav>
     </header>
   );
