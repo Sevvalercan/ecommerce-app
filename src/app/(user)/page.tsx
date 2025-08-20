@@ -10,6 +10,7 @@ import FeaturesSection from "@/components/FeaturesSection";
 
 export default function HomePage() {
   const flashSaleRef = useRef<HTMLDivElement | null>(null);
+  const bestSellingRef = useRef<HTMLDivElement | null>(null);
   const categoryRef = useRef<HTMLDivElement | null>(null);
 
   const scrollCarousel = (
@@ -127,7 +128,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Flash Sale */}
+      {/*    Best Selling Products */}
       <section className="py-12">
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex items-center justify-between mb-6">
@@ -146,22 +147,20 @@ export default function HomePage() {
             </div>
             <div className="flex space-x-2">
               <button
-                onClick={() => scrollCarousel(flashSaleRef, "left")}
+                onClick={() => scrollCarousel(bestSellingRef, "left")}
                 className="bg-white p-2 rounded-full shadow hover:bg-gray-100"
               >
                 &#10094;
               </button>
-              <button
-                onClick={() => scrollCarousel(flashSaleRef, "right")}
-                className="bg-white p-2 rounded-full shadow hover:bg-gray-100"
-              >
-                &#10095;
+              <button onClick={() => scrollCarousel(bestSellingRef, "right")}           className="bg-white p-2 rounded-full shadow hover:bg-gray-100"
+>
+                 &#10095;
               </button>
             </div>
           </div>
 
           <div
-            ref={flashSaleRef}
+            ref={bestSellingRef}
             className="flex overflow-x-auto scrollbar-hide space-x-4 py-4"
           >
             {products.map((product) => (
