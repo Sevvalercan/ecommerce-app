@@ -1,13 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import {
-  FaHeart,
-  FaShoppingCart,
-  FaSearch,
-  FaBars,
-  FaTimes,
-} from "react-icons/fa";
+import { useState, useEffect } from "react";
+import { FaHeart, FaShoppingCart, FaSearch, FaBars, FaTimes, FaUserCircle } from "react-icons/fa";
 import Link from "next/link";
 
 const categories = [
@@ -26,9 +20,24 @@ const categories = [
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [mobileCatOpen, setMobileCatOpen] = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  // Token kontrolü (localStorage)
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    setLoggedIn(!!token);
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setLoggedIn(false);
+    setProfileOpen(false);
+    window.location.href = "/login";
+  };
 
   return (
-<header className="w-full fixed top-0 left-0 z-50">
+    <header className="w-full fixed top-0 left-0 z-50">
       {/* Üst Bar */}
       <div className="bg-black text-white text-sm">
         <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between py-2 relative gap-2">
@@ -68,7 +77,6 @@ export default function Header() {
               <button className="flex items-center gap-1 hover:text-black transition">
                 Category
               </button>
-              {/* Dropdown on hover */}
               <ul className="absolute top-full left-0 mt-2 w-48 bg-white shadow-lg rounded-md py-2 opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-all duration-200 z-50">
                 {categories.map((cat) => (
                   <li
@@ -80,25 +88,13 @@ export default function Header() {
                 ))}
               </ul>
             </li>
-
             <li>
               <Link href="/contact">Contact</Link>
             </li>
             <li>
               <Link href="/about">About</Link>
             </li>
-            <li>
-              <Link href="/signup">Signup</Link>
-            </li>
           </ul>
-
-          {/* Mobile Menü Butonu */}
-          <button
-            className="md:hidden text-gray-700"
-            onClick={() => setMenuOpen(!menuOpen)}
-          >
-            {menuOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
-          </button>
 
           {/* Sağ Taraf */}
           <div className="hidden md:flex items-center gap-4">
@@ -111,8 +107,48 @@ export default function Header() {
               <FaSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
             </div>
             <FaHeart className="cursor-pointer text-gray-600" />
-            <FaShoppingCart className="cursor-pointer text-gray-600" />
+            <Link href="/cart">
+              <FaShoppingCart className="cursor-pointer text-gray-600" />
+            </Link>
+
+            {/* Kullanıcı durumu */}
+            {loggedIn ? (
+              <div className="relative">
+                <button
+                  onClick={() => setProfileOpen(!profileOpen)}
+                  className="flex items-center gap-1 text-gray-700 hover:text-black transition"
+                >
+                  <FaUserCircle size={24} />
+                </button>
+
+                {profileOpen && (
+                  <ul className="absolute right-0 mt-2 w-40 bg-white shadow-lg rounded-md py-2 z-50 border border-gray-200">
+                    <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-gray-700">
+                      <Link href="/profile">Profile</Link>
+                    </li>
+                    <li
+                      className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-gray-700"
+                      onClick={handleLogout}
+                    >
+                      Logout
+                    </li>
+                  </ul>
+                )}
+              </div>
+            ) : (
+              <Link href="/login" className="text-red-500 font-medium">
+                Login
+              </Link>
+            )}
           </div>
+
+          {/* Mobile Menü Butonu */}
+          <button
+            className="md:hidden text-gray-700"
+            onClick={() => setMenuOpen(!menuOpen)}
+          >
+            {menuOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
+          </button>
         </div>
 
         {/* Mobile Menü */}
@@ -148,8 +184,37 @@ export default function Header() {
               <li>
                 <Link href="/about">About</Link>
               </li>
-              <li>
-                <Link href="/signup">Signup</Link>
+
+              {/* Mobile kullanıcı durumu */}
+              <li className="flex items-center gap-2">
+                {loggedIn ? (
+                  <div className="relative">
+                    <button
+                      onClick={() => setProfileOpen(!profileOpen)}
+                      className="flex items-center gap-1 text-gray-700 hover:text-black transition"
+                    >
+                      <FaUserCircle size={24} />
+                    </button>
+
+                    {profileOpen && (
+                      <ul className="absolute right-0 mt-2 w-40 bg-white shadow-lg rounded-md py-2 z-50 border border-gray-200">
+                        <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-gray-700">
+                          <Link href="/profile">Profile</Link>
+                        </li>
+                        <li
+                          className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-gray-700"
+                          onClick={handleLogout}
+                        >
+                          Logout
+                        </li>
+                      </ul>
+                    )}
+                  </div>
+                ) : (
+                  <Link href="/login" className="text-red-500 font-medium">
+                    Login
+                  </Link>
+                )}
               </li>
             </ul>
 
@@ -164,7 +229,9 @@ export default function Header() {
                 <FaSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
               </div>
               <FaHeart className="cursor-pointer text-gray-600" />
-              <FaShoppingCart className="cursor-pointer text-gray-600" />
+              <Link href="/cart">
+                <FaShoppingCart className="cursor-pointer text-gray-600" />
+              </Link>
             </div>
           </div>
         )}

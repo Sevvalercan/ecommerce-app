@@ -2,59 +2,78 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useForm } from "react-hook-form";
+import toast, { Toaster } from "react-hot-toast";
+import { useAuth } from "@/hooks/useAuth"; // AuthContext hook
+
+type FormValues = {
+  name: string;
+  email: string;
+  password: string;
+};
 
 export default function SignUpPage() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const { signup } = useAuth();
+  const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log({ name, email, password });
+  const onSubmit = async (data: FormValues) => {
+    // Basit email regex kontrolü
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(data.email)) {
+      toast.error("Please enter a valid email");
+      return;
+    }
+
+    const success = await signup(data.email, data.password);
+    if (success) {
+      toast.success("Signup successful!");
+      setTimeout(() => {
+        window.location.href = "/"; // Ana sayfaya yönlendir
+      }, 1500);
+    } else {
+      toast.error("Signup failed. Try again.");
+    }
   };
 
   return (
     <div className="min-h-screen flex">
-      {/* Sol taraf görsel */}
+      <Toaster />
       <div className="hidden md:flex w-1/2 items-center justify-center bg-gray-100">
         <div className="relative w-full h-full">
-          <Image
-            src="/loginImage.png"
-            alt="Signup Visual"
-            fill
-            className="object-cover"
-            priority
-          />
+          <Image src="/loginImage.png" alt="Signup Visual" fill className="object-cover" />
         </div>
       </div>
 
-      {/* Sağ taraf form */}
       <div className="w-full md:w-1/2 flex items-center justify-center px-8">
         <div className="max-w-md w-full">
           <h2 className="text-2xl font-bold mb-6">Create an account</h2>
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <input
               type="text"
               placeholder="Name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              {...register("name", { required: "Name is required" })}
               className="w-full p-3 border border-gray-300 rounded-lg"
             />
+            {errors.name && <p className="text-red-500 text-sm">{errors.name.message}</p>}
+
             <input
               type="email"
               placeholder="Email or Phone Number"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              {...register("email", { required: "Email is required" })}
               className="w-full p-3 border border-gray-300 rounded-lg"
             />
+            {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
+
             <input
               type="password"
               placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              {...register("password", {
+                required: "Password is required",
+                minLength: { value: 6, message: "Password must be at least 6 characters" },
+              })}
               className="w-full p-3 border border-gray-300 rounded-lg"
             />
+            {errors.password && <p className="text-red-500 text-sm">{errors.password.message}</p>}
 
             <button
               type="submit"
