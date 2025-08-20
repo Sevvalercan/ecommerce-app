@@ -1,7 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { FaHeart, FaShoppingCart, FaSearch, FaBars, FaTimes } from "react-icons/fa";
+import {
+  FaHeart,
+  FaShoppingCart,
+  FaSearch,
+  FaBars,
+  FaTimes,
+} from "react-icons/fa";
 import Link from "next/link";
 
 const categories = [
@@ -22,11 +28,11 @@ export default function Header() {
   const [mobileCatOpen, setMobileCatOpen] = useState(false);
 
   return (
-    <header className="w-full">
+<header className="w-full fixed top-0 left-0 z-50">
       {/* Üst Bar */}
       <div className="bg-black text-white text-sm">
-        <div className="max-w-7xl mx-auto px-4 flex items-center justify-center py-2 relative">
-          <p className="text-center">
+        <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between py-2 relative gap-2">
+          <p className="text-center md:text-center text-sm">
             Summer Sale For All Swim Suits And Free Express Delivery -{" "}
             <Link
               href="/sale"
@@ -36,7 +42,7 @@ export default function Header() {
             </Link>
           </p>
 
-          <div className="absolute right-4">
+          <div className="flex justify-center md:justify-end w-full md:w-auto">
             <select className="bg-gray border border-gray-600 text-white px-3 py-1 rounded text-sm focus:outline-none focus:ring-2 focus:ring-yellow-400">
               <option value="en">ENGLISH</option>
               <option value="tr">TÜRKÇE</option>
@@ -55,7 +61,7 @@ export default function Header() {
 
           {/* Desktop Menü */}
           <ul className="hidden md:flex gap-6 text-gray-700 font-medium items-center">
-             <li>
+            <li>
               <Link href="/">Home</Link>
             </li>
             <li className="relative group">
@@ -74,7 +80,7 @@ export default function Header() {
                 ))}
               </ul>
             </li>
-           
+
             <li>
               <Link href="/contact">Contact</Link>
             </li>

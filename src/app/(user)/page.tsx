@@ -28,7 +28,7 @@ export default function HomePage() {
   return (
     <div className="space-y-16">
       {/* Slider */}
-      <section className="relative">
+      <section className="relative pt-24">
         <Slider />
       </section>
 
@@ -152,9 +152,11 @@ export default function HomePage() {
               >
                 &#10094;
               </button>
-              <button onClick={() => scrollCarousel(bestSellingRef, "right")}           className="bg-white p-2 rounded-full shadow hover:bg-gray-100"
->
-                 &#10095;
+              <button
+                onClick={() => scrollCarousel(bestSellingRef, "right")}
+                className="bg-white p-2 rounded-full shadow hover:bg-gray-100"
+              >
+                &#10095;
               </button>
             </div>
           </div>
