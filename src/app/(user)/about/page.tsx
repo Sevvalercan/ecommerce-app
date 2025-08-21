@@ -46,7 +46,7 @@ export default function AboutPage() {
 
         <div className="md:w-1/2 flex justify-center ">
           <Image
-            src="/about-image.png" // buraya kendi görselin yolunu koy
+            src="/about-image.png" 
             alt="Our Story"
             width={500}
             height={400}
