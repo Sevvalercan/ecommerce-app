@@ -1,8 +1,16 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { FaHeart, FaShoppingCart, FaSearch, FaBars, FaTimes, FaUserCircle } from "react-icons/fa";
+import {
+  FaHeart,
+  FaShoppingCart,
+  FaSearch,
+  FaBars,
+  FaTimes,
+  FaUserCircle,
+} from "react-icons/fa";
 import Link from "next/link";
+import { useCart } from "@/context/CartContext";
 
 const categories = [
   "Phones",
@@ -22,6 +30,9 @@ export default function Header() {
   const [mobileCatOpen, setMobileCatOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
+
+  const { cart } = useCart(); // Sepet verisi
+  const totalQty = cart.reduce((sum, item) => sum + item.qty, 0); // Toplam ürün adedi
 
   // Token kontrolü (localStorage)
   useEffect(() => {
@@ -107,8 +118,14 @@ export default function Header() {
               <FaSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
             </div>
             <FaHeart className="cursor-pointer text-gray-600" />
-            <Link href="/cart">
+
+            <Link href="/cart" className="relative">
               <FaShoppingCart className="cursor-pointer text-gray-600" />
+              {totalQty > 0 && (
+                <span className="absolute -top-3 -right-3 bg-red-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
+                  {totalQty}
+                </span>
+              )}
             </Link>
 
             {/* Kullanıcı durumu */}
@@ -229,8 +246,13 @@ export default function Header() {
                 <FaSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
               </div>
               <FaHeart className="cursor-pointer text-gray-600" />
-              <Link href="/cart">
+              <Link href="/cart" className="relative">
                 <FaShoppingCart className="cursor-pointer text-gray-600" />
+                {totalQty > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
+                    {totalQty}
+                  </span>
+                )}
               </Link>
             </div>
           </div>
