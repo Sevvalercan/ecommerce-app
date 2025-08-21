@@ -1,6 +1,6 @@
 "use client";
 
-import ProtectedRoute from "@/components/ProtectedRoute";
+import ProtectedRoute from "@/components/product/ProtectedRoute";
 import { useCart, CartItem } from "@/context/CartContext";
 import CartItemRow from "@/components/CartItemRow";
 import { useEffect, useState } from "react";
@@ -65,7 +65,9 @@ export default function CartPage() {
             </div>
 
             <div className="flex justify-between mt-8">
-              <button className="text-blue-600 hover:underline">← Return To Shop</button>
+              <button className="text-blue-600 hover:underline">
+                ← Return To Shop
+              </button>
               <button
                 className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition"
                 onClick={() => toast.success("Sepet güncellendi!")}
@@ -80,7 +82,9 @@ export default function CartPage() {
             <h2 className="text-xl font-semibold mb-4">Cart Total</h2>
             <div className="flex justify-between items-center text-lg font-medium">
               <span>Toplam</span>
-              <span className="text-2xl font-bold text-blue-600">{totalPrice.toFixed(2)}₺</span>
+              <span className="text-2xl font-bold text-blue-600">
+                {totalPrice.toFixed(2)}₺
+              </span>
             </div>
 
             <div className="flex flex-col gap-2">

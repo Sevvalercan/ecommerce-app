@@ -2,9 +2,9 @@
 import { useRef } from "react";
 import Slider from "@/components/Slider";
 import CountdownTimer from "@/components/CountdownTimer";
-import ProductCard from "@/components/ProductCard";
+import ProductCard from "@/components/product/ProductCard";
 import { products } from "@/data/products";
-import CategoryGrid from "@/components/CategoryGrid";
+import CategoryGrid from "@/components/category/CategoryGrid";
 import Image from "next/image";
 import FeaturesSection from "@/components/FeaturesSection";
 
@@ -27,7 +27,6 @@ export default function HomePage() {
 
   return (
     <div className="space-y-16">
-      
       {/* Slider */}
       <section className="relative pt-24">
         <Slider />

@@ -14,7 +14,10 @@ export default function CategoryGrid({ scrollRef }: CategoryGridProps) {
   const ref = scrollRef || internalRef;
 
   return (
-    <div ref={ref} className="flex overflow-x-auto scrollbar-hide space-x-4 py-4">
+    <div
+      ref={ref}
+      className="flex overflow-x-auto scrollbar-hide space-x-4 py-4"
+    >
       {categories.map((cat) => (
         <CategoryCard
           key={cat.label}
