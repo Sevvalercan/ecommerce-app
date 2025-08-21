@@ -52,7 +52,7 @@ export default function ProductDetail({ product }: ProductDetailProps) {
               {product.name}
             </h1>
             <p className="text-2xl font-semibold text-gray-800">
-              ${product.price}
+              {product.price}₺
             </p>
 
             {/* Favori Butonu */}
