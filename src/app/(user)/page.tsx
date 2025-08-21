@@ -27,6 +27,7 @@ export default function HomePage() {
 
   return (
     <div className="space-y-16">
+      
       {/* Slider */}
       <section className="relative pt-24">
         <Slider />

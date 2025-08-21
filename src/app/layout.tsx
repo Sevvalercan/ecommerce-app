@@ -1,26 +1,30 @@
 import "./globals.css";
-import { ReactNode } from "react";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import { AuthProvider } from "@/context/AuthContext";
-import { CartProvider } from "@/context/CartContext";
+import { Inter, Playfair_Display, Open_Sans } from "next/font/google";
+import { Suspense } from "react";
+import { Toaster } from "react-hot-toast";
 
-export const metadata = {
-  title: "E-Commerce Home",
-  description: "Figma uyumlu e-ticaret ana sayfa",
-};
+const inter = Inter({ subsets: ["latin"] });
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  variable: "--font-playfair",
+});
+const openSans = Open_Sans({
+  subsets: ["latin"],
+  variable: "--font-open-sans",
+});
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <html lang="tr">
-      <body className="bg-white text-gray-900">
-        <AuthProvider>
-          <CartProvider>
-            <Header />
-            <main>{children}</main>
-            <Footer />
-          </CartProvider>
-        </AuthProvider>
+    <html lang="tr" className={`${playfair.variable} ${openSans.variable}`}>
+      <body className={inter.className}>
+        <Suspense>
+          <Toaster position="top-right" />
+          {children} 
+        </Suspense>
       </body>
     </html>
   );
