@@ -12,8 +12,7 @@ export const metadata = {
 
 export default function UserLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="tr">
-      <body className="bg-white text-gray-900">
+      <div className="bg-white text-gray-900">
         <AuthProvider>
           <CartProvider>
             <Header />
@@ -21,7 +20,7 @@ export default function UserLayout({ children }: { children: ReactNode }) {
             <Footer />
           </CartProvider>
         </AuthProvider>
-      </body>
-    </html>
+      </div>
+
   );
 }
