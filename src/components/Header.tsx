@@ -1,14 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import {
-  FaHeart,
-  FaShoppingCart,
-  FaSearch,
-  FaBars,
-  FaTimes,
-  FaUserCircle,
-} from "react-icons/fa";
+import { FaHeart, FaShoppingCart, FaSearch, FaBars, FaTimes, FaUserCircle } from "react-icons/fa";
 import Link from "next/link";
 import { useCart } from "@/context/CartContext";
 
