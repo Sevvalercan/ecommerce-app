@@ -1,7 +1,14 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { FaHeart, FaShoppingCart, FaSearch, FaBars, FaTimes, FaUserCircle } from "react-icons/fa";
+import {
+  FaHeart,
+  FaShoppingCart,
+  FaSearch,
+  FaBars,
+  FaTimes,
+  FaUserCircle,
+} from "react-icons/fa";
 import Link from "next/link";
 import { useCart } from "@/context/CartContext";
 
@@ -110,7 +117,9 @@ export default function Header() {
               />
               <FaSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
             </div>
-            <FaHeart className="cursor-pointer text-gray-600" />
+            <Link href="/wishlist">
+              <FaHeart className="cursor-pointer text-gray-600" />
+            </Link>
 
             <Link href="/cart" className="relative">
               <FaShoppingCart className="cursor-pointer text-gray-600" />

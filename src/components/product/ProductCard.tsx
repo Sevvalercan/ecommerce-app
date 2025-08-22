@@ -1,44 +1,39 @@
 "use client";
 
 import Image from "next/image";
-import { Product } from "@/data/products";
-import {
-  FaHeart,
-  FaRegHeart,
-  FaStar,
-  FaEye,
-  FaShoppingCart,
-} from "react-icons/fa";
-import { useState } from "react";
-import { useCart } from "@/context/CartContext";
+import { FaHeart, FaRegHeart, FaEye, FaShoppingCart } from "react-icons/fa";
 import { useRouter } from "next/navigation";
+import { useCart } from "@/context/CartContext";
+import { useWishlist } from "@/context/WishlistContext";
 
-export default function ProductCard({ id, name, price, image }: Product) {
-  const [favorite, setFavorite] = useState(false);
-  const { addToCart } = useCart();
+type ProductCardProps = {
+  id: number;
+  name: string;
+  price: number;
+  image: string;
+};
+
+export default function ProductCard({ id, name, price, image }: ProductCardProps) {
   const router = useRouter();
+  const { addToCart } = useCart();
+  const { wishlist, toggleWishlist } = useWishlist();
 
-  // Ürün detay sayfasına yönlendirme
-  const goToDetail = () => {
-    router.push(`/products/${id}`);
-  };
+  const favorite = wishlist.includes(id);
+
+  const goToDetail = () => router.push(`/products/${id}`);
 
   return (
     <div className="border border-gray-100 rounded-lg p-4 hover:shadow-lg transition group relative overflow-hidden">
       {/* Favori ve göz ikonu */}
       <div className="absolute top-3 right-3 flex flex-col space-y-2 z-10">
         <button
-          onClick={() => setFavorite(!favorite)}
+          onClick={() => toggleWishlist(id)}
           className="bg-white p-2 rounded-full shadow hover:bg-gray-100"
         >
-          {favorite ? (
-            <FaHeart className="text-red-500" />
-          ) : (
-            <FaRegHeart className="text-gray-600" />
-          )}
+          {favorite ? <FaHeart className="text-red-500" /> : <FaRegHeart className="text-gray-600" />}
         </button>
         <button
-          onClick={goToDetail} // Göze tıklayınca detay
+          onClick={goToDetail}
           className="bg-white p-2 rounded-full shadow hover:bg-gray-100"
         >
           <FaEye className="text-gray-600" />
@@ -47,7 +42,7 @@ export default function ProductCard({ id, name, price, image }: Product) {
 
       {/* Ürün görseli */}
       <div
-        onClick={goToDetail} // Ürün görseline tıklayınca detay
+        onClick={goToDetail}
         className="w-full h-40 relative mb-4 cursor-pointer"
       >
         <Image src={image} alt={name} fill className="object-contain" />
@@ -58,17 +53,6 @@ export default function ProductCard({ id, name, price, image }: Product) {
         {name}
       </h3>
       <p className="text-red-500 font-bold">{price}₺</p>
-
-      {/* Yıldızlar */}
-      <div className="flex items-center space-x-1 mt-1">
-        {Array.from({ length: 5 }).map((_, i) => (
-          <FaStar
-            key={i}
-            className={`${i < 4 ? "text-yellow-400" : "text-gray-300"}`}
-          />
-        ))}
-        <span className="text-sm text-gray-500 ml-1">(88)</span>
-      </div>
 
       {/* Sepete ekle */}
       <button

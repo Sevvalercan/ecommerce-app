@@ -4,6 +4,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { AuthProvider } from "@/context/AuthContext";
 import { CartProvider } from "@/context/CartContext";
+import { WishlistProvider } from "@/context/WishlistContext";
 
 export const metadata = {
   title: "E-Commerce Home",
@@ -12,15 +13,16 @@ export const metadata = {
 
 export default function UserLayout({ children }: { children: ReactNode }) {
   return (
-      <div className="bg-white text-gray-900">
-        <AuthProvider>
+    <div className="bg-white text-gray-900">
+      <AuthProvider>
+        <WishlistProvider>
           <CartProvider>
             <Header />
             <main>{children}</main>
             <Footer />
           </CartProvider>
-        </AuthProvider>
-      </div>
-
+        </WishlistProvider>
+      </AuthProvider>
+    </div>
   );
 }

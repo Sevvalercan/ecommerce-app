@@ -6,6 +6,7 @@ import CartItemRow from "@/components/CartItemRow";
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function CartPage() {
   const [mounted, setMounted] = useState(false);
@@ -65,9 +66,9 @@ export default function CartPage() {
             </div>
 
             <div className="flex justify-between mt-8">
-              <button className="text-blue-600 hover:underline">
+              <Link href="/" className="text-blue-600 hover:underline">
                 ← Return To Shop
-              </button>
+              </Link>
               <button
                 className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition"
                 onClick={() => toast.success("Sepet güncellendi!")}
