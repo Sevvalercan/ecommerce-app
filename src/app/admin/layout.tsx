@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import AdminSideBar from '@/components/AdminSidebar';
+import AdminSideBar from '@/components/admin/AdminSidebar';
 
 export default function AdminLayout({ children }: { children: ReactNode }) {
   return (

@@ -1,7 +1,7 @@
 "use client";
 
 import ProtectedRoute from "@/components/product/ProtectedRoute";
-import CartItemRow from "@/components/CartItemRow";
+import CartItemRow from "@/components/cart/CartItemRow";
 import { useCart } from "@/context/CartContext";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";

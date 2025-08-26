@@ -1,13 +1,13 @@
 "use client";
 
 import { useRef } from "react";
-import Slider from "@/components/Slider";
-import CountdownTimer from "@/components/CountdownTimer";
+import Slider from "@/components/common/Slider";
+import CountdownTimer from "@/components/common/CountdownTimer";
 import ProductCard from "@/components/product/ProductCard";
 import { products } from "@/data/products";
 import CategoryGrid from "@/components/category/CategoryGrid";
 import Image from "next/image";
-import FeaturesSection from "@/components/FeaturesSection";
+import FeaturesSection from "@/components/common/FeaturesSection";
 
 export default function HomePage() {
   const flashSaleRef = useRef<HTMLDivElement | null>(null);
