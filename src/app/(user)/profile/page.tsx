@@ -16,7 +16,6 @@ export default function ProfilePage() {
   );
 
   useEffect(() => {
-    // Burada API'den veya localStorage'dan user verisini alabilirsin
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
       setUser(JSON.parse(storedUser));
@@ -32,40 +31,51 @@ export default function ProfilePage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 pt-24 pb-10 px-4">
-      <div className="max-w-3xl mx-auto bg-white shadow-lg rounded-2xl p-6 md:p-10">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 pt-36 pb-10 px-4">
+      <div className="max-w-3xl mx-auto bg-white shadow-xl rounded-2xl md:p-12 border border-gray-100">
         {/* Header */}
-        <div className="flex flex-col items-center gap-3 text-center">
-          <FaUserCircle className="text-gray-400" size={80} />
-          <h2 className="text-2xl font-semibold text-gray-800">{user?.name}</h2>
+        <div className="flex flex-col items-center gap-4 text-center">
+          <div className="bg-gradient-to-tr from-blue-100 to-purple-100 p-3 rounded-full">
+            <FaUserCircle className="text-gray-500" size={90} />
+          </div>
+          <h2 className="text-2xl md:text-3xl font-bold text-gray-800">
+            {user?.name}
+          </h2>
           <p className="text-gray-500">{user?.email}</p>
         </div>
 
         {/* Actions */}
-        <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-5">
           <Link
             href="/profile/edit"
-            className="flex items-center gap-3 bg-yellow-50 hover:bg-yellow-100 text-yellow-700 px-5 py-3 rounded-xl shadow-sm transition"
+            className="flex items-center gap-3 bg-yellow-50 hover:bg-yellow-100 text-yellow-700 px-6 py-4 rounded-xl shadow-sm hover:shadow-md transition transform hover:scale-[1.02]"
           >
-            <FaEdit /> Edit Profile
+            <FaEdit className="text-xl" />{" "}
+            <span className="font-medium">Edit Profile</span>
           </Link>
+
           <Link
-            href="/orders"
-            className="flex items-center gap-3 bg-blue-50 hover:bg-blue-100 text-blue-700 px-5 py-3 rounded-xl shadow-sm transition"
+            href="/profile/orders"
+            className="flex items-center gap-3 bg-blue-50 hover:bg-blue-100 text-blue-700 px-6 py-4 rounded-xl shadow-sm hover:shadow-md transition transform hover:scale-[1.02]"
           >
-            <FaBox /> My Orders
+            <FaBox className="text-xl" />{" "}
+            <span className="font-medium">My Orders</span>
           </Link>
+
           <Link
-            href="/addresses"
-            className="flex items-center gap-3 bg-green-50 hover:bg-green-100 text-green-700 px-5 py-3 rounded-xl shadow-sm transition"
+            href="/profile/addresses"
+            className="flex items-center gap-3 bg-green-50 hover:bg-green-100 text-green-700 px-6 py-4 rounded-xl shadow-sm hover:shadow-md transition transform hover:scale-[1.02]"
           >
-            <FaMapMarkerAlt /> My Addresses
+            <FaMapMarkerAlt className="text-xl" />{" "}
+            <span className="font-medium">My Addresses</span>
           </Link>
+
           <button
             onClick={handleLogout}
-            className="flex items-center gap-3 bg-red-50 hover:bg-red-100 text-red-600 px-5 py-3 rounded-xl shadow-sm transition"
+            className="flex items-center gap-3 bg-red-50 hover:bg-red-100 text-red-600 px-6 py-4 rounded-xl shadow-sm hover:shadow-md transition transform hover:scale-[1.02]"
           >
-            <FaSignOutAlt /> Logout
+            <FaSignOutAlt className="text-xl" />{" "}
+            <span className="font-medium">Logout</span>
           </button>
         </div>
       </div>
