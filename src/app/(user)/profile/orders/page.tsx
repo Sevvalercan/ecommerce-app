@@ -1,23 +1,9 @@
 "use client";
 
+import { orders } from "@/data/products";
 import { FaBox, FaCalendarAlt, FaMoneyBill, FaEye } from "react-icons/fa";
 
 export default function MyOrdersPage() {
-  const orders = [
-    {
-      id: "ORD-1023",
-      date: "2025-08-20",
-      total: "125.00₺",
-      status: "Delivered",
-    },
-    {
-      id: "ORD-1024",
-      date: "2025-08-22",
-      total: "59.00₺",
-      status: "Processing",
-    },
-  ];
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 pt-36 pb-12 px-4">
       <div className="max-w-3xl mx-auto bg-white shadow-xl rounded-2xl overflow-hidden border border-gray-100">

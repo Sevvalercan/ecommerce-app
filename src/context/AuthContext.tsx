@@ -14,7 +14,9 @@ type AuthContextType = {
   isAuthenticated: boolean;
 };
 
-export const AuthContext = createContext<AuthContextType | undefined>(undefined);
+export const AuthContext = createContext<AuthContextType | undefined>(
+  undefined
+);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
@@ -71,7 +73,7 @@ function generateJWT(email: string) {
   const payload = btoa(
     JSON.stringify({
       email,
-      exp: Math.floor(Date.now() / 1000) + 60 * 60, // ✅ exp artık saniye cinsinden
+      exp: Math.floor(Date.now() / 1000) + 60 * 60, //  exp artık saniye cinsinden
     })
   );
   const signature = btoa("secret");

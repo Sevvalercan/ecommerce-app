@@ -1,21 +1,9 @@
 "use client";
 
+import { addresses } from "@/data/addresses";
 import { FaMapMarkerAlt, FaEdit, FaTrash } from "react-icons/fa";
 
 export default function MyAddressesPage() {
-  const addresses = [
-    {
-      id: 1,
-      title: "Home",
-      details: "123 Main Street, New York, USA",
-    },
-    {
-      id: 2,
-      title: "Work",
-      details: "456 Office Road, San Francisco, USA",
-    },
-  ];
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 pt-36 pb-12 px-4">
       <div className="max-w-3xl mx-auto bg-white shadow-xl rounded-2xl overflow-hidden border border-gray-100">

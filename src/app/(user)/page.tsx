@@ -1,4 +1,5 @@
 "use client";
+
 import { useRef } from "react";
 import Slider from "@/components/Slider";
 import CountdownTimer from "@/components/CountdownTimer";
@@ -26,9 +27,9 @@ export default function HomePage() {
   };
 
   return (
-    <div className="space-y-16">
+    <div className="space-y-16 pt-24">
       {/* Slider */}
-      <section className="relative pt-24">
+      <section className="relative">
         <Slider />
       </section>
 
@@ -67,7 +68,7 @@ export default function HomePage() {
             className="flex overflow-x-auto scrollbar-hide space-x-4 py-4"
           >
             {products.map((product) => (
-              <div key={product.id} className="min-w-[220px] max-w-[220px]">
+              <div key={product.id} className="min-w-[220px] flex-shrink-0">
                 <ProductCard {...product} />
               </div>
             ))}
@@ -75,7 +76,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Category */}
+      {/* Category Section */}
       <section className="py-12">
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex items-center justify-between mb-6">
@@ -86,11 +87,9 @@ export default function HomePage() {
                   Categories
                 </span>
               </div>
-              <div className="flex items-center space-x-4">
-                <h2 className="text-3xl font-bold text-black">
-                  Browse By Category
-                </h2>
-              </div>
+              <h2 className="text-3xl font-bold text-black">
+                Browse By Category
+              </h2>
             </div>
             <div className="flex space-x-2">
               <button
@@ -112,23 +111,12 @@ export default function HomePage() {
             ref={categoryRef}
             className="flex overflow-x-auto scrollbar-hide space-x-4 py-4"
           >
-            {/* CategoryGrid içerisindeki her öğeyi scrollable yap */}
-            {Array.isArray(CategoryGrid) ? (
-              CategoryGrid.map((category: any, index: number) => (
-                <div key={index} className="min-w-[200px] flex-shrink-0">
-                  {category}
-                </div>
-              ))
-            ) : (
-              <div className="flex space-x-4">
-                <CategoryGrid />
-              </div>
-            )}
+            <CategoryGrid />
           </div>
         </div>
       </section>
 
-      {/*    Best Selling Products */}
+      {/* Best Selling Products */}
       <section className="py-12">
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex items-center justify-between mb-6">
@@ -139,11 +127,9 @@ export default function HomePage() {
                   This Month
                 </span>
               </div>
-              <div className="flex items-center space-x-4">
-                <h2 className="text-3xl font-bold text-black">
-                  Best Selling Products
-                </h2>
-              </div>
+              <h2 className="text-3xl font-bold text-black">
+                Best Selling Products
+              </h2>
             </div>
             <div className="flex space-x-2">
               <button
@@ -166,7 +152,7 @@ export default function HomePage() {
             className="flex overflow-x-auto scrollbar-hide space-x-4 py-4"
           >
             {products.map((product) => (
-              <div key={product.id} className="min-w-[220px] max-w-[220px]">
+              <div key={product.id} className="min-w-[220px] flex-shrink-0">
                 <ProductCard {...product} />
               </div>
             ))}
@@ -174,27 +160,25 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/*  Special Offers Just for You */}
+      {/* Special Offers */}
       <section className="py-12 bg-gray-100">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="text-center">
-            <h2 className="text-3xl font-bold text-black mb-4">
-              Special Offers Just for You
-            </h2>
-            <p className="text-lg text-gray-700 mb-6">
-              Don't miss out on our exclusive deals and discounts!
-            </p>
-            <button className="bg-red-500 text-white px-6 py-3 rounded-full hover:bg-red-600 transition-colors">
-              Shop Now
-            </button>
-          </div>
+        <div className="max-w-7xl mx-auto px-4 text-center">
+          <h2 className="text-3xl font-bold text-black mb-4">
+            Special Offers Just for You
+          </h2>
+          <p className="text-lg text-gray-700 mb-6">
+            Don't miss out on our exclusive deals and discounts!
+          </p>
+          <button className="bg-red-500 text-white px-6 py-3 rounded-full hover:bg-red-600 transition-colors">
+            Shop Now
+          </button>
         </div>
       </section>
 
-      {/* Banner Section */}
+      {/* Banner */}
       <section className="py-12">
-        <div className="max-w-7xl mx-auto  relative">
-          <div className="relative w-full h-[800px] md:h-[500px]">
+        <div className="max-w-7xl mx-auto relative">
+          <div className="relative w-full h-[500px] md:h-[800px]">
             <Image
               src="/banner/1.png"
               alt="Banner"
