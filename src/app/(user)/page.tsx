@@ -178,7 +178,7 @@ export default function HomePage() {
       {/* Banner */}
       <section className="py-12">
         <div className="max-w-7xl mx-auto relative">
-          <div className="relative w-full h-[500px] md:h-[800px]">
+          <div className="relative w-full h-[300px] md:h-[500px]">
             <Image
               src="/banner/1.png"
               alt="Banner"

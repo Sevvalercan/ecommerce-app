@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   FaHeart,
   FaShoppingCart,
@@ -28,13 +28,18 @@ const categories = [
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [mobileCatOpen, setMobileCatOpen] = useState(false);
-  const [profileOpen, setProfileOpen] = useState(false);
+
   const [loggedIn, setLoggedIn] = useState(false);
 
   const { cart } = useCart(); // Sepet verisi
-  const totalQty = cart.reduce((sum, item) => sum + item.qty, 0); // Toplam ürün adedi
+  const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
 
-  // Token kontrolü (localStorage)
+  // Desktop ve mobile profil dropdown state ve ref
+  const [desktopProfileOpen, setDesktopProfileOpen] = useState(false);
+  const [mobileProfileOpen, setMobileProfileOpen] = useState(false);
+  const desktopRef = useRef<HTMLDivElement>(null);
+  const mobileRef = useRef<HTMLLIElement>(null);
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     setLoggedIn(!!token);
@@ -43,9 +48,30 @@ export default function Header() {
   const handleLogout = () => {
     localStorage.removeItem("token");
     setLoggedIn(false);
-    setProfileOpen(false);
+    setDesktopProfileOpen(false);
+    setMobileProfileOpen(false);
     window.location.href = "/login";
   };
+
+  // Click outside handler
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        desktopRef.current &&
+        !desktopRef.current.contains(event.target as Node)
+      ) {
+        setDesktopProfileOpen(false);
+      }
+      if (
+        mobileRef.current &&
+        !mobileRef.current.contains(event.target as Node)
+      ) {
+        setMobileProfileOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   return (
     <header className="w-full fixed top-0 left-0 z-50">
@@ -130,19 +156,22 @@ export default function Header() {
               )}
             </Link>
 
-            {/* Kullanıcı durumu */}
+            {/* Desktop Kullanıcı */}
             {loggedIn ? (
-              <div className="relative">
+              <div className="relative" ref={desktopRef}>
                 <button
-                  onClick={() => setProfileOpen(!profileOpen)}
+                  onClick={() => setDesktopProfileOpen(true)}
                   className="flex items-center gap-1 text-gray-700 hover:text-black transition"
                 >
                   <FaUserCircle size={24} />
                 </button>
 
-                {profileOpen && (
+                {desktopProfileOpen && (
                   <ul className="absolute right-0 mt-2 w-40 bg-white shadow-lg rounded-md py-2 z-50 border border-gray-200">
-                    <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-gray-700">
+                    <li
+                      className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-gray-700"
+                      onClick={() => setDesktopProfileOpen(false)}
+                    >
                       <Link href="/profile">Profile</Link>
                     </li>
                     <li
@@ -205,19 +234,22 @@ export default function Header() {
               </li>
 
               {/* Mobile kullanıcı durumu */}
-              <li className="flex items-center gap-2">
+              <li ref={mobileRef}>
                 {loggedIn ? (
                   <div className="relative">
                     <button
-                      onClick={() => setProfileOpen(!profileOpen)}
+                      onClick={() => setMobileProfileOpen(true)}
                       className="flex items-center gap-1 text-gray-700 hover:text-black transition"
                     >
                       <FaUserCircle size={24} />
                     </button>
 
-                    {profileOpen && (
+                    {mobileProfileOpen && (
                       <ul className="absolute right-0 mt-2 w-40 bg-white shadow-lg rounded-md py-2 z-50 border border-gray-200">
-                        <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-gray-700">
+                        <li
+                          className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-gray-700"
+                          onClick={() => setMobileProfileOpen(false)}
+                        >
                           <Link href="/profile">Profile</Link>
                         </li>
                         <li
