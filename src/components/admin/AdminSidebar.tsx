@@ -34,7 +34,7 @@ export default function AdminSidebar() {
 
       {/* Logout */}
       <Link
-        href="/logout"
+        href="/login"
         className="flex items-center gap-3 p-2 rounded hover:bg-gray-700 transition"
       >
         <FaSignOutAlt /> Logout
