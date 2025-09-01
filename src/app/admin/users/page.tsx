@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import { users as usersData, User } from "@/data/users"; // users veri dosyası
+import { users as usersData, User } from "@/data/users"; 
 
 export default function AdminUsersPage() {
   const [users, setUsers] = useState<User[]>(usersData);
