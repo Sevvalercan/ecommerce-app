@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import { products as productsData, Product } from "@/data/products";
+import { Product, products as productsData } from "@/data/products";
+import { AdminTable, Column } from "@/components/admin/AdminTable";
 
 export default function AdminProductsPage() {
   const [products, setProducts] = useState<Product[]>(productsData);
@@ -15,64 +16,28 @@ export default function AdminProductsPage() {
     }
   };
 
-  return (
-    <div className="min-h-screen p-8 ">
-      <Toaster />
-      <h1 className="text-3xl font-bold mb-6">Admin - Ürünler</h1>
+  const columns: Column<Product>[] = [
+    { key: "id", label: "ID" },
+    {
+      key: "image",
+      label: "Görsel",
+      render: (p) => <img src={p.image} alt={p.name} className="w-16 h-16 object-cover rounded-md" />,
+    },
+    { key: "name", label: "Ürün Adı" },
+    { key: "price", label: "Fiyat", render: (p) => `${p.price} ₺` },
+  ];
 
-      <div className="overflow-x-auto">
-        <table className="min-w-full shadow-md rounded-lg overflow-hidden">
-          <thead className="bg-gray-100">
-            <tr>
-              <th className="py-3 px-4 text-left text-gray-600">ID</th>
-              <th className="py-3 px-4 text-left text-gray-600">Görsel</th>
-              <th className="py-3 px-4 text-left text-gray-600">Ürün Adı</th>
-              <th className="py-3 px-4 text-left text-gray-600">Fiyat</th>
-              <th className="py-3 px-4 text-left text-gray-600">İşlemler</th>
-            </tr>
-          </thead>
-          <tbody>
-            {products.map((product) => (
-              <tr
-                key={product.id}
-                className="border-b border-gray-100  hover:bg-gray-50 transition"
-              >
-                <td className="py-3 px-4">{product.id}</td>
-                <td className="py-3 px-4">
-                  <img
-                    src={product.image}
-                    alt={product.name}
-                    className="w-16 h-16 object-cover rounded-md"
-                  />
-                </td>
-                <td className="py-3 px-4 font-medium">{product.name}</td>
-                <td className="py-3 px-4">{product.price} ₺</td>
-                <td className="py-3 px-4 space-x-2">
-                  <button
-                    className="bg-gray-500 text-white px-3 py-1 rounded hover:bg-green-700 transition"
-                    onClick={() => handleEdit(product.id)}
-                  >
-                    Düzenle
-                  </button>
-                  <button
-                    className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition"
-                    onClick={() => handleDelete(product.id)}
-                  >
-                    Sil
-                  </button>
-                </td>
-              </tr>
-            ))}
-            {products.length === 0 && (
-              <tr>
-                <td colSpan={5} className="py-4 text-center text-gray-500">
-                  Ürün bulunamadı
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-      </div>
-    </div>
+  return (
+    <>
+      <Toaster />
+      <AdminTable
+        title="Admin - Ürünler"
+        data={products}
+        columns={columns}
+        onEdit={handleEdit}
+        onDelete={handleDelete}
+        emptyMessage="Ürün bulunamadı"
+      />
+    </>
   );
 }
